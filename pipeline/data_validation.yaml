@@ -1,0 +1,56 @@
+name: DataValidationOp
+inputs:
+- {name: bucket_name, type: String}
+- {name: divergence_threshold, type: Float}
+outputs:
+- {name: Output, type: String}
+implementation:
+  container:
+    image: python:3.7
+    command:
+    - sh
+    - -c
+    - |2
+
+      if ! [ -x "$(command -v pip)" ]; then
+          python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip
+      fi
+
+      PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet     --no-warn-script-location 'google-cloud-storage' 'numpy' 'matplotlib' 'scipy' 'kfp==1.8.12' && "$0" "$@"
+    - sh
+    - -ec
+    - |
+      program_path=$(mktemp -d)
+      printf "%s" "$0" > "$program_path/ephemeral_component.py"
+      python3 -m kfp.v2.components.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+    - "\nimport kfp\nfrom kfp.v2 import dsl\nfrom kfp.v2.dsl import *\nfrom typing\
+      \ import *\n\ndef DataValidationOp(\n    bucket_name: str,\n    divergence_threshold:\
+      \ float,\n) -> str:\n    from google.cloud import storage\n    import numpy\
+      \ as np\n    from matplotlib import image\n    from scipy.stats import wasserstein_distance\n\
+      \n    def list_blobs(bucket_name):\n        \"\"\"Lists all the blobs in the\
+      \ bucket.\"\"\"\n        # bucket_name = \"your-bucket-name\"\n\n        storage_client\
+      \ = storage.Client()\n\n        # Note: Client.list_blobs requires at least\
+      \ package version 1.17.0.\n        blobs = storage_client.list_blobs(bucket_name)\n\
+      \n        files = []\n\n        for blob in blobs:\n            files.append(blob.name)\n\
+      \n        return files\n\n    def get_image_brightness(bucket_name, source_blob_name,\
+      \ destination_file_name):\n        \"\"\"Downloads an image from the bucket\
+      \ and get its mean brightness.\"\"\"\n\n        storage_client = storage.Client()\n\
+      \        bucket = storage_client.bucket(bucket_name)\n        blob = bucket.blob(source_blob_name)\n\
+      \        blob.download_to_filename(destination_file_name)\n\n        img = image.imread(destination_file_name)\n\
+      \n        return np.mean(img)\n\n    files = list_blobs(bucket_name)\n    train_files\
+      \ = [file for file in files if 'FaceMask/Train/' in file and 'Augmented' not\
+      \ in file]\n    val_files = [file for file in files if 'FaceMask/Validation/'\
+      \ in file and 'Augmented' not in file]\n    train_brightness = []\n    val_brightness\
+      \ = []\n\n    for file in train_files:\n        brightness = get_image_brightness(bucket_name,\
+      \ file, './image.png')\n        train_brightness.append(brightness)\n    for\
+      \ file in val_files:\n        brightness = get_image_brightness(bucket_name,\
+      \ file, './image.png')\n        val_brightness.append(brightness)    \n\n  \
+      \  # https://datascience.stackexchange.com/a/54385/73827\n    # wasserstein-1\
+      \ distance is better than kl-divergence\n    divergence = wasserstein_distance(train_brightness,\
+      \ val_brightness)\n    if divergence > divergence_threshold:\n        return\
+      \ 'fail'\n    else:\n        return 'pass'\n\n"
+    args:
+    - --executor_input
+    - {executorInput: null}
+    - --function_to_execute
+    - DataValidationOp
