@@ -2,7 +2,7 @@
   <img src="output/pictures/mask_thumbs_up.jpg">
 </p>
 
-# Face-mask-classification MLOps Using VertexAI
+# Face Mask Classification MLOps Using VertexAI
 
 Developing an end-to-end MLOps to deploy and maintain a face mask classification model in production reliably and efficiently.
 
@@ -18,14 +18,14 @@ Developing an end-to-end MLOps to deploy and maintain a face mask classification
 
 # MLOps Architecture
 <p align="center">
-  <img src="output\pictures\mlops_architecture.png">
+  <img src="output\pictures\mlops_architecture.PNG">
 </p>
 
 <br>
 
 # ML Pipeline
 <p align="center">
-  <img src="output\pictures\ml_pipeline.png">
+  <img src="output\pictures\ml_pipeline.PNG">
 </p>
 
 <br>
