@@ -16,6 +16,10 @@ auth.authenticate_user()
 #Copy 1 image file from cloud storage bucket for testing.
 !gsutil cp gs://seangoh-smu-mle-usa/FaceMask/Test/WithMask/1163.png .
 
+
 #Unit testing
-assert get_image_brightness('./1163.png').dtype == 'float32'
-assert get_image_brightness('./1163.png')!= None
+def test_return_pass_if_float():
+	assert get_image_brightness('./1163.png').dtype == 'float32',"output is not float32"
+
+def test_return_pass_if_not_None():
+	assert get_image_brightness('./1163.png')!= None,"Output is None"
