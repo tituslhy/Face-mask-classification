@@ -10,5 +10,6 @@ Original file is located at
 def get_image_brightness(path):
   """Downloads an image from the bucket and get its mean brightness."""
   import numpy as np
+  from matplotlib import image
   img = image.imread(path)
   return np.mean(img)
