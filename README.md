@@ -25,7 +25,7 @@ Developing an end-to-end MLOps to deploy and maintain a face mask classification
 
 # ML Pipeline
 <p align="center">
-  <img src="Desktop/CM Pipeline.PNG">
+  <img src="output\pictures\ml_pipeline.PNG">
 </p>
 
 <br>
