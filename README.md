@@ -37,7 +37,7 @@ Developing an end-to-end MLOps to deploy and maintain a face mask classification
 
 <br>
 
-# Continuous Monitoring
+# Model and Data Monitoring Dashboard
 <p align="center">
   <img src="output\pictures\dashboard.png">
 </p>
