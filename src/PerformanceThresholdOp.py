@@ -5,7 +5,7 @@ def PerformanceThresholdOp(
     import pandas as pd
     
     results = pd.read_json(json_url, typ='series')
-    if results['FullModel'] >= f1_threshold:
+    if results['FullModelF1'] >= f1_threshold:
         return 'pass'
     else:
         return 'fail'

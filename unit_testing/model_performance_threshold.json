@@ -1,0 +1,1 @@
+{"FullModelAccuracy": 0.98828125, "QuantizedModelAccuracy": 0.9921875, "AccuracyDifference": 0.00390625, "FullModelF1": 0.9884615384615385, "QuantizedModelF1": 0.9923076923076923, "F1Difference": 0.0038461538461538325}
