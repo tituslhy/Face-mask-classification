@@ -9,6 +9,7 @@ Developing an end-to-end MLOps to deploy and maintain a face mask classification
 
 ```
 .
+├── dockerfiles         <- docker files for building images   
 ├── notebook            <- notebooks for explorations / prototyping
 │   ├── archive         <- for archiving old notebooks
 ├── output              <- storing artifacts, logs etc
