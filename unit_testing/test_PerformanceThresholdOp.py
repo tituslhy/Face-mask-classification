@@ -1,7 +1,6 @@
 import pytest
 import sys
 sys.path.insert(1, 'src/')
-print(sys.path)
 from PerformanceThresholdOp import PerformanceThresholdOp
 
 # check it returns pass if value higher than threshold
