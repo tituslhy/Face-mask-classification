@@ -12,7 +12,9 @@ Developing an end-to-end MLOps to deploy and maintain a face mask classification
 ├── notebook            <- notebooks for explorations / prototyping
 │   ├── archive         <- for archiving old notebooks
 ├── output              <- storing artifacts, logs etc
-└── pipeline            <- code and yaml, json files for deploying pipeline 
+├── pipeline            <- code and yaml, json files for deploying pipeline 
+├── src                 <- source code
+└── unit_testing        <- unit test scripts
 ```
 <br>
 
