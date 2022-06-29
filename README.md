@@ -4,7 +4,7 @@
 
 # Face Mask Classification MLOps Using VertexAI
 
-Developing an end-to-end MLOps to deploy and maintain a face mask classification model in production reliably and efficiently.
+Developing an end-to-end MLOps solution to deploy and maintain a face mask classification model in production reliably and efficiently.
 
 
 ```
